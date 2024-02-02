@@ -137,37 +137,39 @@ class nonuniform_CA_2D:
         return sequence
     
     def CA_envolution(self):
-        self.sequence_in_cells = [[ str(self.grid[i][j].value) for j in range(self.width)] for i in range(self.height)]
+#        self.sequence_in_cells = [[ str(self.grid[i][j].value) for j in range(self.width)] for i in range(self.height)]
+        self.sequence_in_cells = [[ "" for j in range(self.width)] for i in range(self.height)]
+        
+        cout = 0
         
         for i in range(self.run):
-            self.CA_update()
-            #self.CA_plot()
-            
+            print("The iteration is: ", i+1)
             # add new value to sequence_in_cells
             for j in range(self.height):
                 for k in range(self.width):
                     self.sequence_in_cells[j][k] += str(self.grid[j][k].value)
-            
-    def CA_output(self):
-        # Cover sequences in sequence_in_cells to bit_sequence
-        # every 32 bits in sequences will be converted to a hexadecimal digit
-        
-        output = []
-        
-        #if the lens of sequence in sequence_in_cells is not a multiple of 32, cut the last few bits
-        cut_len = int(len(self.sequence_in_cells[0][0]) / 32)
-        
-        self.sequence_in_cells = [[ self.sequence_in_cells[i][j][:cut_len*32] for j in range(self.width)] for i in range(self.height)]
-        
-        # convert every 32 bits to a hexadecimal digit
-        for k in range(cut_len):
-            for i in range(self.height):
-                for j in range(self.width):
-                    output.append(int(self.sequence_in_cells[i][j][k*32:(k+1)*32], 2))
+                    
+            self.CA_update()
+            #self.CA_plot()
+                    
+            if (i+1) % 32 == 0:
+                cout += 1
                 
-        return output
-
-    
+                # convert sequence_in_cells to bit_sequence
+                # every 32 bits in sequences will be converted to a hexadecimal digit
+                self.sequence_in_cells = [[ int(self.sequence_in_cells[i][j], 2) for j in range(self.width)] for i in range(self.height)]
+                
+                # output bit sequence to file .bin
+                with open("random_numbers.bin", 'wb') as file:
+                    for j in range(self.height):
+                        for k in range(self.width):
+                            file.write(struct.pack('>I', self.sequence_in_cells[j][k]))
+                            
+                # reset
+                self.sequence_in_cells = [[ "" for j in range(self.width)] for i in range(self.height)]   
+                
+        print("The number of 32 bits is: ", cout*self.width*self.height)         
+        
 #####################################################
 
 def test_entropy():
@@ -197,8 +199,8 @@ def test_rule_gen():
 def test_CA():
     width  = 8
     height = 8
-    #run    = 100*32
-    run    = 1000000*32
+    run    = 1000000*32 # 32000000
+#    run    = 10*32
     
     #rule_code_table = [[random.randint(0,63) for j in range(width)] for i in range(height)]
     rule_15 = 0b001011
@@ -228,6 +230,7 @@ def test_CA():
     CA.CA_envolution()
 #    print("The bit sequence of CA is: ", bit_sequence)
 
+    """
     cell_entropys = []
     for i in range(height):
         for j in range(width):
@@ -241,19 +244,7 @@ def test_CA():
     plt.xlabel("Entropy")
     plt.ylabel("Frequency")
     plt.show()
-    
-    # print bit sequence
-    bit_sequence = CA.CA_output()
-    #print("The bit sequence of CA is: ", bit_sequence)
-    
-    print("The numbers of bits in bit sequence is: ", len(bit_sequence))
-    
-    # output bit sequence to file .bin
-    with open("random_numbers.bin", 'wb') as file:
-        for i in range(len(bit_sequence)):
-            file.write(struct.pack('>I', bit_sequence[i]))
-    
-
+    """
 if __name__ == '__main__':
 #    test_rule_gen()
     test_CA()
