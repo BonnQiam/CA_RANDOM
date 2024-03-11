@@ -137,6 +137,18 @@ class nonuniform_CA_2D:
         return sequence
     
     def CA_envolution(self):
+        self.sequence_in_cells = [[ "" for j in range(self.width)] for i in range(self.height)]
+        
+        for i in range(self.run):
+            print("The iteration is: ", i+1)
+            # add new value to sequence_in_cells
+            for j in range(self.height):
+                for k in range(self.width):
+                    self.sequence_in_cells[j][k] += str(self.grid[j][k].value)
+                    
+            self.CA_update()
+    
+    def CA_envolution_4_test(self):
 #        self.sequence_in_cells = [[ str(self.grid[i][j].value) for j in range(self.width)] for i in range(self.height)]
         self.sequence_in_cells = [[ "" for j in range(self.width)] for i in range(self.height)]
         
@@ -160,11 +172,10 @@ class nonuniform_CA_2D:
                 self.sequence_in_cells = [[ int(self.sequence_in_cells[i][j], 2) for j in range(self.width)] for i in range(self.height)]
                 
                 # output bit sequence to file .bin
-                with open("random_numbers.bin", 'wb') as file:
+                with open("random_numbers.bin", 'ab') as file:
                     for j in range(self.height):
                         for k in range(self.width):
                             file.write(struct.pack('>I', self.sequence_in_cells[j][k]))
-                            
                 # reset
                 self.sequence_in_cells = [[ "" for j in range(self.width)] for i in range(self.height)]   
                 
@@ -196,13 +207,15 @@ def test_rule_gen():
     print("next state: ", bin(next_state)[2:].zfill(5))
 
 
-def test_CA():
+def Diehard_test_CA():
     width  = 8
     height = 8
     run    = 1000000*32 # 32000000
-#    run    = 10*32
+#    run    = 100*32
     
     #rule_code_table = [[random.randint(0,63) for j in range(width)] for i in range(height)]
+    
+    """
     rule_15 = 0b001011
     rule_31 = 0b011011
     rule_47 = 0b101111
@@ -217,6 +230,17 @@ def test_CA():
         [rule_31, rule_63, rule_31, rule_31, rule_31, rule_31, rule_63, rule_31],
         [rule_63, rule_63, rule_31, rule_31, rule_31, rule_31, rule_15, rule_31]   
     ]
+    """
+    rule_code_table = []
+    with open("rule_table_v1.txt", "r") as f:
+        for i in range(height):
+            rule_code_table.append([])
+            rule_code = f.readline().split()
+            for j in range(width):
+                rule_code_table[i].append(int(rule_code[j]))
+    
+    CA = nonuniform_CA_2D(width, height, rule_code_table, run)
+    CA.CA_envolution()
     
     CA = nonuniform_CA_2D(width, height, rule_code_table, run)
 #    CA.CA_plot()
@@ -227,7 +251,7 @@ def test_CA():
 #    print("The next state of CA is: ", CA.CA_state_output_as_sequence())
 #    CA.CA_plot()
     
-    CA.CA_envolution()
+    CA.CA_envolution_4_test()
 #    print("The bit sequence of CA is: ", bit_sequence)
 
     """
@@ -245,7 +269,18 @@ def test_CA():
     plt.ylabel("Frequency")
     plt.show()
     """
+
+def test_read_bin():
+    # read random_numbers.bin and output the length of the file
+    # using dieharder to test the randomness of the file
+    # dieharder -g 201 -f random_numbers.bin -a
+    with open("random_numbers.bin", 'rb') as file:
+        file.seek(0, 2)
+        print("The length of the file is: ", file.tell())
+    
 if __name__ == '__main__':
 #    test_rule_gen()
-    test_CA()
 #    test_entropy()
+
+    Diehard_test_CA()
+    test_read_bin()
