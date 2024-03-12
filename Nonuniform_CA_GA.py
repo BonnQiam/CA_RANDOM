@@ -46,9 +46,12 @@ def CA_GA():
     
     width = 8
     height = 8
-    CA_sim_steps = 32*100
     
-    num_generations = 41
+    #CA_sim_steps = 32*100
+    #num_generations = 41
+    
+    CA_sim_steps = 4096
+    num_generations = 200
     
     # generate random rule table
     rule_code_table = []
@@ -71,14 +74,15 @@ def CA_GA():
                 cell_entropy = entropy(CA.sequence_in_cells[i][j])
                 cell_entropys.append(cell_entropy)
         
-        if(num % 20 == 0):
+        """
+        if(num % 100 == 0):
             # statistics of cell entropys and plot it in histogram
             plt.hist(cell_entropys, bins=20)
             plt.title("Histogram of cell entropys")
             plt.xlabel("Entropy")
             plt.ylabel("Frequency")
             plt.show()
-        
+        """
         # covert cell_entorpys to 2D list
         cell_entropys = np.array(cell_entropys).reshape(width, height)
         
@@ -119,7 +123,9 @@ def CA_GA():
                     parent_2 = random.randint(0, fitter[i][j].num_fitter-1)
                     while parent_1 == parent_2:
                         parent_2 = random.randint(0, fitter[i][j].num_fitter-1)
-                    rule_code_table[i][j] = crossover(fitter[i][j].fitter[parent_1], fitter[i][j].fitter[parent_2])
+                    rule_code_table[i][j] = crossover(
+                        fitter[i][j].fitter[parent_1], 
+                        fitter[i][j].fitter[parent_2])
                     mutation(rule_code_table[i][j])
         
     # save the rule_table in .txt

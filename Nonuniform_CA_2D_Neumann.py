@@ -148,7 +148,7 @@ class nonuniform_CA_2D:
                     
             self.CA_update()
     
-    def CA_envolution_4_test(self):
+    def CA_envolution_4_test(self, filename):
 #        self.sequence_in_cells = [[ str(self.grid[i][j].value) for j in range(self.width)] for i in range(self.height)]
         self.sequence_in_cells = [[ "" for j in range(self.width)] for i in range(self.height)]
         
@@ -172,7 +172,7 @@ class nonuniform_CA_2D:
                 self.sequence_in_cells = [[ int(self.sequence_in_cells[i][j], 2) for j in range(self.width)] for i in range(self.height)]
                 
                 # output bit sequence to file .bin
-                with open("random_numbers.bin", 'ab') as file:
+                with open(filename + "_random_numbers.bin", 'ab') as file:
                     for j in range(self.height):
                         for k in range(self.width):
                             file.write(struct.pack('>I', self.sequence_in_cells[j][k]))
@@ -207,11 +207,11 @@ def test_rule_gen():
     print("next state: ", bin(next_state)[2:].zfill(5))
 
 
-def Diehard_test_CA():
+def Diehard_test_CA(filename):
     width  = 8
     height = 8
     #run    = 1000000*32 # 32000000
-    run    = 1000000*5
+    run    = 10*32
     
     #rule_code_table = [[random.randint(0,63) for j in range(width)] for i in range(height)]
     
@@ -232,7 +232,8 @@ def Diehard_test_CA():
     ]
     """
     rule_code_table = []
-    with open("rule_table_v1.txt", "r") as f:
+
+    with open(filename + '.txt', "r") as f:
         for i in range(height):
             rule_code_table.append([])
             rule_code = f.readline().split()
@@ -247,8 +248,7 @@ def Diehard_test_CA():
 #    CA.CA_update()
 #    print("The next state of CA is: ", CA.CA_state_output_as_sequence())
 #    CA.CA_plot()
-    
-    CA.CA_envolution_4_test()
+    CA.CA_envolution_4_test(filename)
 #    print("The bit sequence of CA is: ", bit_sequence)
 
     """
@@ -267,17 +267,17 @@ def Diehard_test_CA():
     plt.show()
     """
 
-def test_read_bin():
+def test_read_bin(filename):
     # read random_numbers.bin and output the length of the file
     # using dieharder to test the randomness of the file
     # dieharder -g 201 -f random_numbers.bin -a
-    with open("random_numbers.bin", 'rb') as file:
+    with open(filename + "_random_numbers.bin", 'rb') as file:
         file.seek(0, 2)
         print("The length of the file is: ", file.tell())
     
 if __name__ == '__main__':
 #    test_rule_gen()
 #    test_entropy()
-
-    Diehard_test_CA()
-    test_read_bin()
+    filename = 'rule_table_v1'
+    Diehard_test_CA(filename)
+    test_read_bin(filename)
