@@ -210,8 +210,8 @@ def test_rule_gen():
 def Diehard_test_CA(filename):
     width  = 8
     height = 8
-    #run    = 1000000*32 # 32000000
-    run    = 10*32
+    run    = 1000000*32 # 32000000
+    #run    = 10*32
     
     #rule_code_table = [[random.randint(0,63) for j in range(width)] for i in range(height)]
     

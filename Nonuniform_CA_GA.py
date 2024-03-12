@@ -29,10 +29,14 @@ def mutation(rule_code):
     for i in range(len(rule_code_str)):
         if random.random() < mutation_rate:
             rule_code_str[i] = 1 - rule_code_str[i]
+            #if(rule_code_str[i] == '1'):
+            #    rule_code_str[i] = '0'
+            #else:
+            #    rule_code_str[i] = '1'
             
-    rule_code = int(''.join(str(i) for i in rule_code_str), 2)
+    return int(''.join(str(i) for i in rule_code_str), 2)
 
-def CA_GA():
+def CA_GA(filename):
     
     class entory_and_rule:
         def __init__(self, entory, rule):
@@ -115,8 +119,10 @@ def CA_GA():
             for j in range(height):
                 if fitter[i][j].num_fitter == 1:
                     rule_code_table[i][j] = fitter[i][j].fitter[0]
+                    rule_code_table[i][j] = mutation(rule_code_table[i][j])
                 if fitter[i][j].num_fitter == 2:
                     rule_code_table[i][j] = crossover(fitter[i][j].fitter[0], fitter[i][j].fitter[1])
+                    rule_code_table[i][j] = mutation(rule_code_table[i][j])
                 if fitter[i][j].num_fitter > 2:
                     # random select two fitter as parents
                     parent_1 = random.randint(0, fitter[i][j].num_fitter-1)
@@ -126,10 +132,10 @@ def CA_GA():
                     rule_code_table[i][j] = crossover(
                         fitter[i][j].fitter[parent_1], 
                         fitter[i][j].fitter[parent_2])
-                    mutation(rule_code_table[i][j])
+                    rule_code_table[i][j] = mutation(rule_code_table[i][j])
         
     # save the rule_table in .txt
-    with open("rule_table.txt", "w") as f:
+    with open(filename, "w") as f:
         for i in range(width):
             for j in range(height):
                 f.write(str(rule_code_table[i][j]) + " ")
@@ -155,9 +161,9 @@ def test_mutation():
     
     print("Before mutation: ", format(rule_code, '06b'))
     
-    mutation(rule_code)
+    new_rule_code = mutation(rule_code)
     
-    print("After mutation: ", format(rule_code, '06b'))
+    print("After mutation: ", format(new_rule_code, '06b'))
 
 def test_CA_entropy():
     width  = 8
@@ -219,4 +225,5 @@ if __name__ == '__main__':
     #test_CA_entropy()
     #test_crossover()
     #test_mutation()
-    CA_GA()
+    filename = 'rule_table.txt'
+    CA_GA(filename)
