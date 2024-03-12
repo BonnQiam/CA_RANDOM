@@ -210,8 +210,8 @@ def test_rule_gen():
 def Diehard_test_CA():
     width  = 8
     height = 8
-    run    = 1000000*32 # 32000000
-#    run    = 100*32
+    #run    = 1000000*32 # 32000000
+    run    = 1000000*5
     
     #rule_code_table = [[random.randint(0,63) for j in range(width)] for i in range(height)]
     
@@ -238,9 +238,6 @@ def Diehard_test_CA():
             rule_code = f.readline().split()
             for j in range(width):
                 rule_code_table[i].append(int(rule_code[j]))
-    
-    CA = nonuniform_CA_2D(width, height, rule_code_table, run)
-    CA.CA_envolution()
     
     CA = nonuniform_CA_2D(width, height, rule_code_table, run)
 #    CA.CA_plot()

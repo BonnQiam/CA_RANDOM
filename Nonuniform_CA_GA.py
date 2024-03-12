@@ -48,7 +48,7 @@ def CA_GA():
     height = 8
     CA_sim_steps = 32*100
     
-    num_generations = 100
+    num_generations = 41
     
     # generate random rule table
     rule_code_table = []
@@ -60,6 +60,8 @@ def CA_GA():
     for num in range(num_generations):    
         # generate CA with rule code
         CA = nonuniform_CA_2D(width, height, rule_code_table, CA_sim_steps)
+        # reset
+        CA.sequence_in_cells = [[ "" for j in range(CA.width)] for i in range(CA.height)]
         CA.CA_envolution()
         
         # calculate entropy of CA
@@ -119,7 +121,7 @@ def CA_GA():
                         parent_2 = random.randint(0, fitter[i][j].num_fitter-1)
                     rule_code_table[i][j] = crossover(fitter[i][j].fitter[parent_1], fitter[i][j].fitter[parent_2])
                     mutation(rule_code_table[i][j])
-    
+        
     # save the rule_table in .txt
     with open("rule_table.txt", "w") as f:
         for i in range(width):
@@ -184,7 +186,7 @@ def test_CA_entropy():
     
     # read from rule_table_v*.txt to get rule_code_table
     rule_code_table = []
-    with open("rule_table_v2.txt", "r") as f:
+    with open("rule_table_v1.txt", "r") as f:
         for i in range(height):
             rule_code_table.append([])
             rule_code = f.readline().split()
@@ -208,7 +210,7 @@ def test_CA_entropy():
     plt.ylabel("Frequency")
     plt.show()
 if __name__ == '__main__':
-    test_CA_entropy()
+    #test_CA_entropy()
     #test_crossover()
     #test_mutation()
-    #CA_GA()
+    CA_GA()
