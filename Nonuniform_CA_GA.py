@@ -225,5 +225,13 @@ if __name__ == '__main__':
     #test_CA_entropy()
     #test_crossover()
     #test_mutation()
-    filename = 'rule_table.txt'
-    CA_GA(filename)
+    filenames = [
+        'rule_table_v1.txt', 'rule_table_v2.txt', 'rule_table_v3.txt', 'rule_table_v4.txt', 'rule_table_v5.txt',
+        'rule_table_v6.txt', 'rule_table_v7.txt', 'rule_table_v8.txt', 'rule_table_v9.txt', 'rule_table_v10.txt',
+        'rule_table_v11.txt', 'rule_table_v12.txt', 'rule_table_v13.txt', 'rule_table_v14.txt', 'rule_table_v15.txt',
+        'rule_table_v16.txt', 'rule_table_v17.txt', 'rule_table_v18.txt', 'rule_table_v19.txt', 'rule_table_v20.txt',
+        'rule_table_v21.txt', 'rule_table_v22.txt', 'rule_table_v23.txt', 'rule_table_v24.txt', 'rule_table_v25.txt',
+        'rule_table_v26.txt', 'rule_table_v27.txt', 'rule_table_v28.txt', 'rule_table_v29.txt', 'rule_table_v30.txt'
+    ]
+    for filename in filenames:
+        CA_GA(filename)

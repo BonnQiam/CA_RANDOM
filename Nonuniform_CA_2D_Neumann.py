@@ -172,7 +172,8 @@ class nonuniform_CA_2D:
                 self.sequence_in_cells = [[ int(self.sequence_in_cells[i][j], 2) for j in range(self.width)] for i in range(self.height)]
                 
                 # output bit sequence to file .bin
-                with open(filename + "_random_numbers.bin", 'ab') as file:
+                #with open(filename + "_random_numbers.bin", 'ab') as file:
+                with open(filename + ".bin", 'ab') as file:
                     for j in range(self.height):
                         for k in range(self.width):
                             file.write(struct.pack('>I', self.sequence_in_cells[j][k]))
@@ -271,13 +272,21 @@ def test_read_bin(filename):
     # read random_numbers.bin and output the length of the file
     # using dieharder to test the randomness of the file
     # dieharder -g 201 -f random_numbers.bin -a
-    with open(filename + "_random_numbers.bin", 'rb') as file:
+    with open(filename + ".bin", 'rb') as file:
         file.seek(0, 2)
         print("The length of the file is: ", file.tell())
     
 if __name__ == '__main__':
 #    test_rule_gen()
 #    test_entropy()
-    filename = 'rule_table_v1'
-    Diehard_test_CA(filename)
-    test_read_bin(filename)
+    #filenames = ['rule_table_v2', 'rule_table_v3', 'rule_table_v4', 'rule_table_v5', 'rule_table_v6', 'rule_table_v7', 'rule_table_v8', 'rule_table_v9', 'rule_table_v10']
+
+    #filenames = ['rule_table_v12', 'rule_table_v13', 'rule_table_v14', 'rule_table_v15', 'rule_table_v16', 'rule_table_v17', 'rule_table_v18', 'rule_table_v19', 'rule_table_v20',]
+
+    #filenames = ['rule_table_v22', 'rule_table_v23', 'rule_table_v24', 'rule_table_v25', 'rule_table_v26', 'rule_table_v27', 'rule_table_v28', 'rule_table_v29', 'rule_table_v30']
+
+    filenames = ['rule_table_v28', 'rule_table_v29', 'rule_table_v30']
+
+    for filename in filenames:
+        Diehard_test_CA(filename)
+        test_read_bin(filename)
