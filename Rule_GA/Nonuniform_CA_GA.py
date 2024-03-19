@@ -166,8 +166,12 @@ def test_mutation():
     print("After mutation: ", format(new_rule_code, '06b'))
 
 def test_CA_entropy():
-    width  = 8
-    height = 8
+    #width  = 8
+    #height = 8
+    
+    width  = 19
+    height = 19
+    
     run    = 32*100
     
     """
