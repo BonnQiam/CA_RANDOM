@@ -3,6 +3,7 @@ import random
 if __name__ == '__main__':
 
     Reference_rule_list = [14,15,27,31,47,51,55,59,63]
+    #Reference_rule_list = [11,14,15,23,25,27,29,30,31,39,43,46,47,51,55,59,63]
 
     filenames = [
             'rule_table_v1.txt', 'rule_table_v2.txt', 'rule_table_v3.txt', 'rule_table_v4.txt', 'rule_table_v5.txt',
