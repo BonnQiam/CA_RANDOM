@@ -209,9 +209,15 @@ def test_rule_gen():
 
 
 def Diehard_test_CA(filename):
-    width  = 8
-    height = 8
-    run    = 1000000*32 # 32000000
+    
+    #width  = 8
+    #height = 8
+    #run    = 1000000*32 # 32000000
+
+    width  = 19
+    height = 19
+    run    = 177286*32 # 32000000
+
     #run    = 10*32
     
     #rule_code_table = [[random.randint(0,63) for j in range(width)] for i in range(height)]
@@ -279,11 +285,24 @@ def test_read_bin(filename):
 if __name__ == '__main__':
 #    test_rule_gen()
 #    test_entropy()
-    #filenames = ['rule_table_v1', 'rule_table_v2', 'rule_table_v3', 'rule_table_v4', 'rule_table_v5', 'rule_table_v6', 'rule_table_v7', 'rule_table_v8', 'rule_table_v9', 'rule_table_v10']
+    
+    #filenames = ['rule_table_v1', 'rule_table_v2', 'rule_table_v3', 'rule_table_v4', 'rule_table_v5', 'rule_table_v6'] 
+    
+    #filenames = ['rule_table_v7', 'rule_table_v8', 'rule_table_v9', 'rule_table_v10', 'rule_table_v11', 'rule_table_v12'] 
+    
+    #filenames = ['rule_table_v13', 'rule_table_v14', 'rule_table_v15', 'rule_table_v16', 'rule_table_v17', 'rule_table_v18']
+    
+    #filenames = ['rule_table_v19', 'rule_table_v20','rule_table_v21', 'rule_table_v22', 'rule_table_v23', 'rule_table_v24']
+    
+    #filenames = ['rule_table_v25', 'rule_table_v26', 'rule_table_v27', 'rule_table_v28', 'rule_table_v29', 'rule_table_v30']
 
-    #filenames = ['rule_table_v11', 'rule_table_v12', 'rule_table_v13', 'rule_table_v14', 'rule_table_v15', 'rule_table_v16', 'rule_table_v17', 'rule_table_v18', 'rule_table_v19', 'rule_table_v20',]
+    ##########################
 
-    filenames = ['rule_table_v21', 'rule_table_v22', 'rule_table_v23', 'rule_table_v24', 'rule_table_v25', 'rule_table_v26', 'rule_table_v27', 'rule_table_v28', 'rule_table_v29', 'rule_table_v30']
+    #filenames = ['rule_table_v8', 'rule_table_v9', 'rule_table_v10']
+
+    #filenames = ['rule_table_v18', 'rule_table_v19', 'rule_table_v20']
+
+    filenames = ['rule_table_v28', 'rule_table_v29', 'rule_table_v30']
 
     for filename in filenames:
         Diehard_test_CA(filename)

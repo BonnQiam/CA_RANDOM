@@ -1,7 +1,9 @@
-import math
+import sys
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+
+sys.path.append("..")
 
 from Rule_Generator import additive_rule_gen
 from Nonuniform_CA_2D_Neumann import calculate_entropy, entropy, cell, nonuniform_CA_2D
@@ -48,14 +50,18 @@ def CA_GA(filename):
             self.fitter = fitter
             self.num_fitter = num_fitter
     
-    width = 8
-    height = 8
+    #width = 8
+    #height = 8
+
+    width = 19
+    height = 19
     
     #CA_sim_steps = 32*100
     #num_generations = 41
     
     CA_sim_steps = 4096
-    num_generations = 200
+    #num_generations = 200
+    num_generations = 400
     
     # generate random rule table
     rule_code_table = []
@@ -229,13 +235,14 @@ if __name__ == '__main__':
     #test_CA_entropy()
     #test_crossover()
     #test_mutation()
-    filenames = [
-        'rule_table_v1.txt', 'rule_table_v2.txt', 'rule_table_v3.txt', 'rule_table_v4.txt', 'rule_table_v5.txt',
-        'rule_table_v6.txt', 'rule_table_v7.txt', 'rule_table_v8.txt', 'rule_table_v9.txt', 'rule_table_v10.txt',
-        'rule_table_v11.txt', 'rule_table_v12.txt', 'rule_table_v13.txt', 'rule_table_v14.txt', 'rule_table_v15.txt',
-        'rule_table_v16.txt', 'rule_table_v17.txt', 'rule_table_v18.txt', 'rule_table_v19.txt', 'rule_table_v20.txt',
-        'rule_table_v21.txt', 'rule_table_v22.txt', 'rule_table_v23.txt', 'rule_table_v24.txt', 'rule_table_v25.txt',
-        'rule_table_v26.txt', 'rule_table_v27.txt', 'rule_table_v28.txt', 'rule_table_v29.txt', 'rule_table_v30.txt'
-    ]
+    
+    #filenames = ['rule_table_v1.txt', 'rule_table_v2.txt', 'rule_table_v3.txt', 'rule_table_v4.txt', 'rule_table_v5.txt','rule_table_v6.txt', 'rule_table_v7.txt', 'rule_table_v8.txt', 'rule_table_v9.txt', 'rule_table_v10.txt']
+
+    #filenames = ['rule_table_v11.txt', 'rule_table_v12.txt', 'rule_table_v13.txt', 'rule_table_v14.txt', 'rule_table_v15.txt', 'rule_table_v16.txt', 'rule_table_v17.txt', 'rule_table_v18.txt', 'rule_table_v19.txt', 'rule_table_v20.txt']
+    
+    #filenames=['rule_table_v21.txt', 'rule_table_v22.txt', 'rule_table_v23.txt', 'rule_table_v24.txt', 'rule_table_v25.txt', 'rule_table_v26.txt', 'rule_table_v27.txt', 'rule_table_v28.txt', 'rule_table_v29.txt', 'rule_table_v30.txt']
+
+    filenames = ['rule_table_v5.txt','rule_table_v6.txt', 'rule_table_v7.txt', 'rule_table_v8.txt', 'rule_table_v9.txt', 'rule_table_v10.txt']
+
     for filename in filenames:
         CA_GA(filename)
