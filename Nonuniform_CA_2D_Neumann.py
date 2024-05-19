@@ -210,13 +210,13 @@ def test_rule_gen():
 
 def Diehard_test_CA(filename):
     
-    #width  = 8
-    #height = 8
-    #run    = 1000000*32 # 32000000
+    width  = 8
+    height = 8
+    run    = 1000000*32 # 32000000
 
-    width  = 19
-    height = 19
-    run    = 177286*32 # 32000000
+    #width  = 19
+    #height = 19
+    #run    = 177286*32 # 32000000
 
     #run    = 10*32
     
@@ -302,8 +302,14 @@ if __name__ == '__main__':
 
     #filenames = ['rule_table_v18', 'rule_table_v19', 'rule_table_v20']
 
-    filenames = ['rule_table_v28', 'rule_table_v29', 'rule_table_v30']
+    #filenames = ['rule_table_v28', 'rule_table_v29', 'rule_table_v30']
 
+    filenames = ['rule_table_v1']
+    
     for filename in filenames:
+        # clear the file
+        with open(filename + ".bin", 'wb') as file:
+            pass
+        
         Diehard_test_CA(filename)
         test_read_bin(filename)
