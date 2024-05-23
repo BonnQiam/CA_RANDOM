@@ -296,15 +296,12 @@ if __name__ == '__main__':
     
     #filenames = ['rule_table_v25', 'rule_table_v26', 'rule_table_v27', 'rule_table_v28', 'rule_table_v29', 'rule_table_v30']
 
+
     ##########################
 
-    #filenames = ['rule_table_v8', 'rule_table_v9', 'rule_table_v10']
-
-    #filenames = ['rule_table_v18', 'rule_table_v19', 'rule_table_v20']
-
-    #filenames = ['rule_table_v28', 'rule_table_v29', 'rule_table_v30']
-
-    filenames = ['rule_table_v1']
+    #filenames = ['rule_table_v1', 'rule_table_v2', 'rule_table_v3', 'rule_table_v4']
+    #filenames = ['rule_table_v5', 'rule_table_v6', 'rule_table_v7', 'rule_table_v8']
+    filenames = ['rule_table_v9', 'rule_table_v10', 'rule_table_v11']
     
     for filename in filenames:
         # clear the file
